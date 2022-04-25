@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  getBoardsWithDataPath: '/api/boards/get-boards-with-data',
+  getBoardsPath: '/api/boards/get-boards',
+  getMeasurementsPath: '/api/measurements/get-measurements-by-sensor',
+  getSensorsPath: '/api/sensors'
+
 };
 
 /*

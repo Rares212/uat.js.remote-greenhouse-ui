@@ -1,0 +1,9 @@
+<div>
+  <li *ngFor="let sensor of board.sensors">
+    <app-sensor-details
+      [sensor]="sensor"
+      [xAxisLabel]="'Time'"
+      [yAxisLabel]="sensor.measurementUnit">
+    </app-sensor-details>
+  </li>
+</div>
