@@ -12,6 +12,15 @@ import {DatePipe} from "@angular/common";
 import { BoardDetailsComponent } from './components/board-details/board-details.component';
 import { SensorDetailsComponent } from './components/sensor-details/sensor-details.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,15 +30,24 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     BoardDetailsComponent,
     SensorDetailsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
 
-        NgbModule,
-        NgxChartsModule
-    ],
+    NgbModule,
+    NgxChartsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    FormsModule
+  ],
   providers: [
     DatePipe
   ],

@@ -1,5 +1,6 @@
 import {SensorType} from "../enum/sensor-type.enum";
 import {DataItem} from "@swimlane/ngx-charts";
+import {UtilService} from "../util/util.service";
 
 export class SensorModel {
   id: string;

@@ -1,5 +1,25 @@
-<div>
-  <li *ngFor="let board of boards">
-    <app-board-details [board]="board"></app-board-details>
-  </li>
-</div>
+<app-toolbar></app-toolbar>
+
+<!--mat-sidenav-container>
+  <mat-sidenav>Start</mat-sidenav>
+  <mat-sidenav-content>Main</mat-sidenav-content>
+</mat-sidenav-container-->
+
+<mat-form-field appearance="fill">
+  <mat-label>Choose a date</mat-label>
+  <input matInput (dateInput)="onDateSelected($event.value)" [min]="validTimeRange.from" [max]="validTimeRange.to"
+         [matDatepicker]="measurementsDatePicker">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="measurementsDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #measurementsDatePicker></mat-datepicker>
+</mat-form-field>
+
+
+<li *ngFor="let board of boards">
+  <app-board-details
+    [board]="board"
+    [dataTimeRange]="dataTimeRange"
+    [sensorColumns]="2">
+  </app-board-details>
+</li>
+

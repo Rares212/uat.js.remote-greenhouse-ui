@@ -1,9 +1,16 @@
-<div>
-  <li *ngFor="let sensor of board.sensors">
-    <app-sensor-details
-      [sensor]="sensor"
-      [xAxisLabel]="'Time'"
-      [yAxisLabel]="sensor.measurementUnit">
-    </app-sensor-details>
-  </li>
-</div>
+<mat-card tabindex="0">
+  <mat-card-title>{{board.name}}</mat-card-title>
+  <mat-card-subtitle>Last active at: {{board.lastActiveAt | date:'short'}}</mat-card-subtitle>
+
+  <mat-grid-list [cols]="sensorColumns" rowHeight="1.8:1">
+    <mat-grid-tile *ngFor="let sensor of board.sensors">
+      <app-sensor-details
+        [sensor]="sensor"
+        [dataTimeRange]="dataTimeRange"
+        [xAxisLabel]="'Time'"
+        [yAxisLabel]="sensor.measurementUnit">
+      </app-sensor-details>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</mat-card>
