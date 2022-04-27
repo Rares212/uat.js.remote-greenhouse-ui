@@ -14,6 +14,8 @@ export class BoardDetailsComponent implements OnInit {
   @Input() sensorColumns: number = 2;
   @Input() dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
 
+  showData: boolean = false;
+
   constructor(private greenhouseService: GreenhouseService) { }
 
   ngOnInit(): void {

@@ -9,5 +9,26 @@
   transition: ease-in-out 600ms max-height;
 }
 
+.gauge-chart {
+  max-height: 0;
+  overflow-y: hidden;
+  transition: ease-in-out 400ms max-height;
+}
+
+.gauge-chart.opened {
+  max-height: 400px;
+  transition: ease-in-out 600ms max-height;
+}
+
 .sensor-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.data-display-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: normal;
+  align-items: center;
+  align-content: center;
 }

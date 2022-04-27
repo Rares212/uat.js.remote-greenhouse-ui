@@ -2,15 +2,20 @@
   <mat-card-title>{{board.name}}</mat-card-title>
   <mat-card-subtitle>Last active at: {{board.lastActiveAt | date:'short'}}</mat-card-subtitle>
 
-  <mat-grid-list [cols]="sensorColumns" rowHeight="1.8:1">
-    <mat-grid-tile *ngFor="let sensor of board.sensors">
-      <app-sensor-details
-        [sensor]="sensor"
-        [dataTimeRange]="dataTimeRange"
-        [xAxisLabel]="'Time'"
-        [yAxisLabel]="sensor.measurementUnit">
-      </app-sensor-details>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div #gridListContainer>
+    <mat-grid-list #gridList class="sensor-grid" [cols]="sensorColumns" [rowHeight]="'350px'">
+      <mat-grid-tile *ngFor="let sensor of board.sensors">
+        <app-sensor-details
+          [chartView]="[gridListContainer.offsetWidth / gridList.cols - 10, gridListContainer.offsetWidth / gridList.cols / 2]"
+          [sensor]="sensor"
+          [dataTimeRange]="dataTimeRange"
+          [xAxisLabel]="'Time'"
+          [yAxisLabel]="sensor.measurementUnit"
+          [showChartData]="false"
+          [showGaugeData]="true">
+        </app-sensor-details>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 
 </mat-card>
