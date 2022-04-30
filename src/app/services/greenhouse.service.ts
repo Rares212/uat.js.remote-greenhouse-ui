@@ -21,29 +21,25 @@ export class GreenhouseService {
   constructor(private http: HttpClient, private utilService: UtilService) { }
 
   public getBoards(): Observable<BoardModel[]> {
-    return this.http.get<BoardModel[]>(environment.getBoardsPath, { headers: this.headers });
+    return this.http.get<BoardModel[]>(environment.boardsPath, { headers: this.headers });
   }
 
   public getSensors(board: BoardModel): Observable<SensorModel[]> {
-    return this.http.get<SensorModel[]>(environment.getSensorsPath + '/' + board.id, { headers: this.headers });
+    let params: HttpParams = new HttpParams();
+    params = params.append("boardId", board.id);
+
+    return this.http.get<SensorModel[]>(environment.sensorsPath, { headers: this.headers, params: params });
   }
 
   public getMeasurements(sensor: SensorModel, from?: Date, to?: Date): Observable<DataItem[]> {
     let params: HttpParams = this.getDateParams(from, to);
     params = params.append('sensorId', sensor.id);
 
-    return this.http.get<DataItem[]>(environment.getMeasurementsPath, { headers: this.headers, params: params });
-  }
-
-  public getLatestMeasurement(sensor: SensorModel): Observable<DataItem> {
-    let params: HttpParams = new HttpParams();
-    params = params.append('sensorId', sensor.id);
-
-    return this.http.get<DataItem>(environment.getLatestMeasurementPath, { headers: this.headers, params: params });
+    return this.http.get<DataItem[]>(environment.measurementsPath, { headers: this.headers, params: params });
   }
 
   public getActivityTimeRange(): Observable<TimeRangeModel> {
-    return this.http.get<TimeRangeModel>(environment.getActivityTimeRangePath, { headers: this.headers });
+    return this.http.get<TimeRangeModel>(environment.activityTimeRangePath, { headers: this.headers });
   }
 
   private getDateParams(from?: Date, to?: Date): HttpParams {

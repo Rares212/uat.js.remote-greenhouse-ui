@@ -1,23 +1,23 @@
 .line-chart {
-  max-height: 0;
-  overflow-y: hidden;
-  transition: ease-in-out 400ms max-height;
+  max-width: 0;
+  overflow-x: hidden;
+  transition: ease-in-out 400ms max-width;
 }
 
 .line-chart.opened {
-  max-height: 400px;
-  transition: ease-in-out 600ms max-height;
+  max-width: 600px;
+  transition: ease-in-out 600ms max-width;
 }
 
 .gauge-chart {
-  max-height: 0;
-  overflow-y: hidden;
-  transition: ease-in-out 400ms max-height;
+  max-width: 0;
+  overflow-x: hidden;
+  transition: ease-in-out 400ms max-width;
 }
 
 .gauge-chart.opened {
-  max-height: 400px;
-  transition: ease-in-out 600ms max-height;
+  max-width: 300px;
+  transition: ease-in-out 600ms max-width;
 }
 
 .sensor-container {
@@ -26,9 +26,9 @@
 
 .data-display-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: normal;
-  align-items: center;
-  align-content: center;
+  align-items: normal;
+  align-content: normal;
 }

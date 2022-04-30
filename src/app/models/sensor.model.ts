@@ -1,23 +1,26 @@
 import {SensorType} from "../enum/sensor-type.enum";
 import {DataItem} from "@swimlane/ngx-charts";
-import {UtilService} from "../util/util.service";
+import {MeasurementUnit} from "../enum/measurement-unit.enum";
 
 export class SensorModel {
   id: string;
   name: string;
   sensorType: SensorType;
-  measurementUnit: string;
+  measurementUnit: MeasurementUnit;
+  latestMeasurement: DataItem;
   measurements: DataItem[];
 
-  constructor(id: string, name: string, sensorType: SensorType, measurementUnit: string, measurements: DataItem[]) {
+
+  constructor(id: string, name: string, sensorType: SensorType, measurementUnit: MeasurementUnit, latestMeasurement: DataItem, measurements: DataItem[]) {
     this.id = id;
     this.name = name;
     this.sensorType = sensorType;
     this.measurementUnit = measurementUnit;
+    this.latestMeasurement = latestMeasurement;
     this.measurements = measurements;
   }
 
   public static createEmptySensor(): SensorModel {
-    return new SensorModel('', '', SensorType.GENERIC, '', []);
+    return new SensorModel('', '', SensorType.GENERIC, MeasurementUnit.PERCENT, {value: 0, name: new Date()}, []);
   }
 }

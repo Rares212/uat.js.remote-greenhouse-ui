@@ -3,16 +3,14 @@
   <mat-card-subtitle>Last active at: {{board.lastActiveAt | date:'short'}}</mat-card-subtitle>
 
   <div #gridListContainer>
-    <mat-grid-list #gridList class="sensor-grid" [cols]="sensorColumns" [rowHeight]="'350px'">
-      <mat-grid-tile *ngFor="let sensor of board.sensors">
-        <app-sensor-details
-          [chartView]="[gridListContainer.offsetWidth / gridList.cols - 10, gridListContainer.offsetWidth / gridList.cols / 2]"
+    <mat-grid-list #gridList class="sensor-grid" [cols]="sensorColumns" [rowHeight]="'350px'" gutterSize="0px">
+      <mat-grid-tile *ngFor="let sensor of board.sensors" [colspan]="sensorDetails.showChartData ? 2 : 1">
+        <app-sensor-details #sensorDetails
+          [chartView]="[700, 300]"
           [sensor]="sensor"
           [dataTimeRange]="dataTimeRange"
           [xAxisLabel]="'Time'"
-          [yAxisLabel]="sensor.measurementUnit"
-          [showChartData]="false"
-          [showGaugeData]="true">
+          [yAxisLabel]="sensor.measurementUnit.toString()">
         </app-sensor-details>
       </mat-grid-tile>
     </mat-grid-list>

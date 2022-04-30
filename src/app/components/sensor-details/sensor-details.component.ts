@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SensorModel} from "../../models/sensor.model";
-import {Color, DataItem, ScaleType, Series} from "@swimlane/ngx-charts";
+import {Color, DataItem, ScaleType, Series, StringOrNumberOrDate} from "@swimlane/ngx-charts";
 import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
 import {UtilService} from "../../util/util.service";
 import {ValueRangeModel} from "../../models/value-range.model";
 import {SensorType} from "../../enum/sensor-type.enum";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-sensor-details',
@@ -16,8 +17,8 @@ export class SensorDetailsComponent implements OnInit {
 
   @Input() sensor: SensorModel = SensorModel.createEmptySensor()
 
-  @Input() showGaugeData: boolean = true;
-  @Input() showChartData: boolean = false;
+  showGaugeData: boolean = true;
+  showChartData: boolean = false;
 
   // Chart options
   @Input() chartView: [number, number] = [800, 400];
@@ -50,8 +51,6 @@ export class SensorDetailsComponent implements OnInit {
 
   valueRange: ValueRangeModel = ValueRangeModel.createValueRangeModelFromSensorType(SensorType.GENERIC);
 
-  latestMeasurement: DataItem = {value: 0.0, name: new Date()}
-
   data: Series[] = [];
 
   colorScheme: Color = {
@@ -66,10 +65,7 @@ export class SensorDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor.sensorType);
-
-    if (this.showGaugeData) {
-      this.getLatestMeasurement();
-    }
+    this.onTimeRangeChange();
   }
 
   private buildChartData() {
@@ -85,8 +81,8 @@ export class SensorDetailsComponent implements OnInit {
     this.greenhouseService.getMeasurements(this.sensor, this._dataTimeRange.from, this._dataTimeRange.to).subscribe(
       measurements => {
         this.sensor.measurements = measurements;
-        this.formatMeasurements();
         this.buildChartData();
+        this.formatMeasurements()
         if (this.sensor.measurements.length == 0) {
           this.showChartData = false;
         }
@@ -94,17 +90,9 @@ export class SensorDetailsComponent implements OnInit {
     );
   }
 
-  private getLatestMeasurement(): void {
-    this.greenhouseService.getLatestMeasurement(this.sensor).subscribe(
-      measurement => {
-        this.latestMeasurement = measurement;
-      }
-    )
-  }
-
   private formatMeasurements(): void {
     for (let measurement of this.sensor.measurements) {
-      measurement.name = this.utilService.formatReadableTime(measurement.name as Date);
+      measurement.name = new Date(measurement.name as number);
     }
   }
 

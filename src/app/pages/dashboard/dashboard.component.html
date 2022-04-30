@@ -7,11 +7,14 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Choose a date</mat-label>
-  <input matInput (dateInput)="onDateSelected($event.value)" [min]="validTimeRange.from" [max]="validTimeRange.to"
-         [matDatepicker]="measurementsDatePicker">
+  <mat-date-range-input [rangePicker]="measurementsDatePicker" [min]="validTimeRange.from" [max]="validTimeRange.to">
+    <input matStartDate placeholder="Start date" (dateInput)="onStartDateSelected($event.value)">
+    <input matEndDate placeholder="End date" (dateInput)="onEndDateSelected($event.value)">
+  </mat-date-range-input>
+
   <mat-hint>MM/DD/YYYY</mat-hint>
   <mat-datepicker-toggle matSuffix [for]="measurementsDatePicker"></mat-datepicker-toggle>
-  <mat-datepicker #measurementsDatePicker></mat-datepicker>
+  <mat-date-range-picker #measurementsDatePicker></mat-date-range-picker>
 </mat-form-field>
 
 
@@ -19,7 +22,7 @@
   <app-board-details
     [board]="board"
     [dataTimeRange]="dataTimeRange"
-    [sensorColumns]="3">
+    [sensorColumns]="2">
   </app-board-details>
 </li>
 

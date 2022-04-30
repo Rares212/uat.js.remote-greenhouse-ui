@@ -2,21 +2,23 @@
   <mat-card tabindex="1">
     <mat-card-title style="text-align: center">{{sensor.name}}</mat-card-title>
 
+    <mat-slide-toggle [(ngModel)]="showChartData">Show chart</mat-slide-toggle>
+
     <div class="data-display-container">
       <div class="gauge-chart"
-           [class.opened]="showGaugeData && latestMeasurement !== undefined">
+           [class.opened]="showGaugeData && sensor.latestMeasurement !== null && sensor.latestMeasurement !== undefined">
         <ngx-charts-gauge
           [view]="[300,300]"
-          [results]="[latestMeasurement]"
+          [results]="[sensor.latestMeasurement]"
           [min]="valueRange.from"
           [max]="valueRange.to"
-          [units]="sensor.measurementUnit"
+          [units]="sensor.measurementUnit.toString()"
           [scheme]="colorScheme">
         </ngx-charts-gauge>
       </div>
 
       <div class="line-chart"
-           [class.opened]="showChartData && sensor.measurements !== undefined && sensor.measurements.length !== 0">
+           [class.opened]="showChartData ">
         <ngx-charts-line-chart
           [view]="chartView"
           [scheme]="colorScheme"
@@ -24,8 +26,9 @@
           [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel"
           [xAxis]="xAxis"
-          [yAxis]="yAxis"
           [xAxisLabel]="xAxisLabel"
+          [trimXAxisTicks]="true"
+          [yAxis]="yAxis"
           [yAxisLabel]="yAxisLabel"
           [timeline]="timeline"
           [results]="data"

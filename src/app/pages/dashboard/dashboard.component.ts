@@ -13,8 +13,7 @@ import {UtilService} from "../../util/util.service";
 export class DashboardComponent implements OnInit {
   validTimeRange: TimeRangeModel = TimeRangeModel.createFullTimeRange();
 
-  selectedDate: Date = new Date();
-  dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(this.selectedDate);
+  dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
 
   boards: BoardModel[] = [];
 
@@ -35,10 +34,17 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  onDateSelected(date: Date | null): void {
+  onStartDateSelected(date: Date | null) {
     if (!UtilService.isNullOrUndefined(date)) {
-      this.selectedDate = date!;
-      this.dataTimeRange = TimeRangeModel.createDailyTimeRange(this.selectedDate);
+      date?.setHours(0);
+      this.dataTimeRange.from = date!;
+    }
+  }
+
+  onEndDateSelected(date: Date | null) {
+    if (!UtilService.isNullOrUndefined(date)) {
+      date?.setHours(23, 59, 59, 999);
+      this.dataTimeRange = new TimeRangeModel(this.dataTimeRange.from, date!);
     }
   }
 
