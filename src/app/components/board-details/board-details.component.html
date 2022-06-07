@@ -1,19 +1,14 @@
-<mat-card tabindex="0">
-  <mat-card-title>{{board.name}}</mat-card-title>
+<mat-card class="mat-elevation-z2">
   <mat-card-subtitle>Last active at: {{board.lastActiveAt | date:'short'}}</mat-card-subtitle>
 
-  <div #gridListContainer>
-    <mat-grid-list #gridList class="sensor-grid" [cols]="sensorColumns" [rowHeight]="'350px'" gutterSize="0px">
-      <mat-grid-tile *ngFor="let sensor of board.sensors" [colspan]="sensorDetails.showChartData ? 2 : 1">
-        <app-sensor-details #sensorDetails
-          [chartView]="[700, 300]"
-          [sensor]="sensor"
-          [dataTimeRange]="dataTimeRange"
-          [xAxisLabel]="'Time'"
-          [yAxisLabel]="sensor.measurementUnit.toString()">
-        </app-sensor-details>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+  <ktd-grid [cols]="sensorColumns" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
+    <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
+      <app-sensor-details [width]="item.w"
+                          [sensor]="findSensorById(item.id)"
+                          [dataTimeRange]="dataTimeRange">
+      </app-sensor-details>
+    </ktd-grid-item>
+  </ktd-grid>
 
 </mat-card>
+<mat-divider></mat-divider>

@@ -1,41 +1,36 @@
-<div class="sensor-container">
-  <mat-card tabindex="1">
-    <mat-card-title style="text-align: center">{{sensor.name}}</mat-card-title>
+<mat-card>
+  <mat-card-title style="text-align: center">{{sensor.name}}</mat-card-title>
 
-    <mat-slide-toggle [(ngModel)]="showChartData">Show chart</mat-slide-toggle>
-
-    <div class="data-display-container">
-      <div class="gauge-chart"
-           [class.opened]="showGaugeData && sensor.latestMeasurement !== null && sensor.latestMeasurement !== undefined">
-        <ngx-charts-gauge
-          [view]="[300,300]"
-          [results]="[sensor.latestMeasurement]"
-          [min]="valueRange.from"
-          [max]="valueRange.to"
-          [units]="sensor.measurementUnit.toString()"
-          [scheme]="colorScheme">
-        </ngx-charts-gauge>
-      </div>
-
-      <div class="line-chart"
-           [class.opened]="showChartData ">
-        <ngx-charts-line-chart
-          [view]="chartView"
-          [scheme]="colorScheme"
-          [legend]="legend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxis]="xAxis"
-          [xAxisLabel]="xAxisLabel"
-          [trimXAxisTicks]="true"
-          [yAxis]="yAxis"
-          [yAxisLabel]="yAxisLabel"
-          [timeline]="timeline"
-          [results]="data"
-          [gradient]="gradient"
-          [showGridLines]="showGridLines">
-        </ngx-charts-line-chart>
-      </div>
+  <div class="data-display-container">
+    <div class="gauge-chart">
+      <ngx-charts-gauge *ngIf="sensor.latestMeasurement !== null && sensor.latestMeasurement !== undefined"
+                        [view]="[300,300]"
+                        [results]="[sensor.latestMeasurement]"
+                        [min]="valueRange.from"
+                        [max]="valueRange.to"
+                        [units]="sensor.measurementUnit.toString()"
+                        [scheme]="colorScheme">
+      </ngx-charts-gauge>
     </div>
-  </mat-card>
-</div>
+
+    <div class="line-chart" #chartContainer
+         [class.opened]="width > 1">
+      <ngx-charts-line-chart
+        [view]="[chartContainer.offsetWidth, 300]"
+        [scheme]="colorScheme"
+        [legend]="false"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [xAxisLabel]="'Time'"
+        [trimXAxisTicks]="true"
+        [yAxis]="yAxis"
+        [yAxisLabel]="sensor.measurementUnit"
+        [timeline]="timeline"
+        [results]="data"
+        [gradient]="gradient"
+        [showGridLines]="showGridLines">
+      </ngx-charts-line-chart>
+    </div>
+  </div>
+</mat-card>

@@ -21,6 +21,14 @@ import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {FormsModule} from "@angular/forms";
+import {KtdGridModule} from "@katoid/angular-grid-layout";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatDividerModule} from "@angular/material/divider";
+import { GreenhouseDetailsComponent } from './components/greenhouse-details/greenhouse-details.component';
+import {MatIconModule} from "@angular/material/icon";
+import { UserCardComponent } from './components/user-card/user-card.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -28,7 +36,9 @@ import {FormsModule} from "@angular/forms";
     DashboardComponent,
     ToolbarComponent,
     BoardDetailsComponent,
-    SensorDetailsComponent
+    SensorDetailsComponent,
+    GreenhouseDetailsComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +56,13 @@ import {FormsModule} from "@angular/forms";
     MatCardModule,
     MatGridListModule,
     MatSlideToggleModule,
-    FormsModule
+    FormsModule,
+    KtdGridModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatIconModule,
+    MatChipsModule
   ],
   providers: [
     DatePipe

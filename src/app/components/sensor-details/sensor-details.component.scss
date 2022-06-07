@@ -1,34 +1,44 @@
+:root{
+  --bordersize: 1px;
+}
+
 .line-chart {
-  max-width: 0;
+  width: 0;
   overflow-x: hidden;
-  transition: ease-in-out 400ms max-width;
+
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+
+  transition: ease-in-out 400ms flex-grow;
 }
 
 .line-chart.opened {
-  max-width: 600px;
-  transition: ease-in-out 600ms max-width;
-}
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
 
-.gauge-chart {
-  max-width: 0;
-  overflow-x: hidden;
-  transition: ease-in-out 400ms max-width;
-}
-
-.gauge-chart.opened {
-  max-width: 300px;
-  transition: ease-in-out 600ms max-width;
+  transition: ease-in-out 1000ms flex-grow;
 }
 
 .sensor-container {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-left: var(--bordersize) dashed #ccc;
+  border-bottom: var(--bordersize) dashed #ccc;
+  margin-left: calc(-1 * var(--bordersize));
+  margin-bottom: calc(-1 * var(--bordersize));
 }
 
 .data-display-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: normal;
+  justify-content: center;
   align-items: normal;
   align-content: normal;
 }

@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://localhost:8080",
+    "target": "7ucc0he-draghicir.pitunnel.com",
     "secure": false
   }
 }

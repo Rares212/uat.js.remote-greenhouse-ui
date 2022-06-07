@@ -17,20 +17,16 @@ export class SensorDetailsComponent implements OnInit {
 
   @Input() sensor: SensorModel = SensorModel.createEmptySensor()
 
-  showGaugeData: boolean = true;
-  showChartData: boolean = false;
+  // Layout item
+  @Input() width: number = 1;
 
   // Chart options
-  @Input() chartView: [number, number] = [800, 400];
-  @Input() legend: boolean = false;
   @Input() showLabels: boolean = true;
   @Input() animations: boolean = true;
   @Input() xAxis: boolean = true;
   @Input() yAxis: boolean = true;
   @Input() showYAxisLabel: boolean = true;
   @Input() showXAxisLabel: boolean = true;
-  @Input() xAxisLabel: string = 'x';
-  @Input() yAxisLabel: string = 'y';
   @Input() timeline: boolean = true;
   @Input() gradient: boolean = true;
   @Input() showGridLines: boolean = true;
@@ -42,9 +38,7 @@ export class SensorDetailsComponent implements OnInit {
 
   set dataTimeRange(value: TimeRangeModel) {
     this._dataTimeRange = value;
-    if (this.showChartData) {
-      this.onTimeRangeChange();
-    }
+    this.onTimeRangeChange();
   }
 
   private _dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
@@ -83,9 +77,6 @@ export class SensorDetailsComponent implements OnInit {
         this.sensor.measurements = measurements;
         this.buildChartData();
         this.formatMeasurements()
-        if (this.sensor.measurements.length == 0) {
-          this.showChartData = false;
-        }
       }
     );
   }

@@ -1,0 +1,12 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.user-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: normal;
+}

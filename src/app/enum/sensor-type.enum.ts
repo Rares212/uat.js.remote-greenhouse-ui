@@ -1,6 +1,6 @@
 export enum SensorType {
   GENERIC = 'GENERIC',
-  AMBIENT_TEMP = 'Ambient temperature',
+  AMBIENT_TEMP = 'AMBIENT_TEMP',
   WATER_TEMP = 'WATER_TEMP',
   HUMIDITY = 'HUMIDITY',
   EC = 'EC',
