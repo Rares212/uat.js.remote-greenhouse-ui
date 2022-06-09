@@ -30,6 +30,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {UserCardComponent} from './components/user-card/user-card.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {TimeagoModule} from "ngx-timeago";
+import { PhSensorComponent } from './components/sensor-details/ph-sensor/ph-sensor.component';
+import { EcSensorComponent } from './components/sensor-details/ec-sensor/ec-sensor.component';
+import { AmbientTempSensorComponent } from './components/sensor-details/ambient-temp-sensor/ambient-temp-sensor.component';
+import { AmbientTempHumiditySensorComponent } from './components/sensor-details/ambient-temp-humidity-sensor/ambient-temp-humidity-sensor.component';
+import { LightSensorComponent } from './components/sensor-details/light-sensor/light-sensor.component';
+import { WaterFlowSensorComponent } from './components/sensor-details/water-flow-sensor/water-flow-sensor.component';
+import { WaterLevelSensorComponent } from './components/sensor-details/water-level-sensor/water-level-sensor.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,14 @@ import {TimeagoModule} from "ngx-timeago";
     BoardDetailsComponent,
     SensorDetailsComponent,
     GreenhouseDetailsComponent,
-    UserCardComponent
+    UserCardComponent,
+    PhSensorComponent,
+    EcSensorComponent,
+    AmbientTempSensorComponent,
+    AmbientTempHumiditySensorComponent,
+    LightSensorComponent,
+    WaterFlowSensorComponent,
+    WaterLevelSensorComponent
   ],
   imports: [
     BrowserModule,

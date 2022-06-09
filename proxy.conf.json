@@ -1,7 +1,7 @@
 {
   "/api/*": {
-    "target": "http://wpdwunh-draghicir.pitunnel.com",
-    "secure": false,
+    "target": "https://jg3qyx7-draghicir.pitunnel.com",
+    "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"
   }

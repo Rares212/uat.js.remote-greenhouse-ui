@@ -21,20 +21,24 @@ export class SensorDetailsComponent implements OnInit {
   @Input() width: number = 1;
 
   // Chart options
-  @Input() showLabels: boolean = true;
-  @Input() animations: boolean = true;
-  @Input() xAxis: boolean = true;
-  @Input() yAxis: boolean = true;
-  @Input() showYAxisLabel: boolean = true;
-  @Input() showXAxisLabel: boolean = true;
-  @Input() timeline: boolean = true;
-  @Input() gradient: boolean = true;
-  @Input() showGridLines: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  timeline: boolean = true;
+  gradient: boolean = true;
+  showGridLines: boolean = true;
+  showReferenceLines: boolean = false;
+  referenceLines: DataItem[] = [];
 
   @Input()
   get dataTimeRange(): TimeRangeModel {
     return this._dataTimeRange;
   }
+
+  @Input() fractionDigits: number = 0;
 
   set dataTimeRange(value: TimeRangeModel) {
     this._dataTimeRange = value;
@@ -76,7 +80,9 @@ export class SensorDetailsComponent implements OnInit {
       measurements => {
         this.sensor.measurements = measurements;
         this.buildChartData();
-        this.formatMeasurements()
+        this.formatMeasurements();
+
+
       }
     );
   }
@@ -85,6 +91,15 @@ export class SensorDetailsComponent implements OnInit {
     for (let measurement of this.sensor.measurements) {
       measurement.name = new Date(measurement.name as number);
     }
+
+    this.sensor.latestMeasurement.name = new Date(this.sensor.latestMeasurement.name);
+    //this.sensor.latestMeasurement.value = this.sensor.latestMeasurement.value.toFixed(this.fractionDigits);
   }
+
+  formatValue(value: any): string {
+    return value.toFixed(this.fractionDigits);
+  }
+
+
 
 }

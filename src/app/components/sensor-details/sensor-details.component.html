@@ -8,6 +8,7 @@
                         [results]="[sensor.latestMeasurement]"
                         [min]="valueRange.from"
                         [max]="valueRange.to"
+                        [valueFormatting]="formatValue"
                         [units]="sensor.measurementUnit.toString()"
                         [scheme]="colorScheme">
       </ngx-charts-gauge>
@@ -19,8 +20,8 @@
         [view]="[chartContainer.offsetWidth, 300]"
         [scheme]="colorScheme"
         [legend]="false"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
         [xAxis]="xAxis"
         [xAxisLabel]="'Time'"
         [trimXAxisTicks]="true"
@@ -29,7 +30,9 @@
         [timeline]="timeline"
         [results]="data"
         [gradient]="gradient"
-        [showGridLines]="showGridLines">
+        [showGridLines]="showGridLines"
+        [referenceLines]="referenceLines"
+        [>
       </ngx-charts-line-chart>
     </div>
   </div>

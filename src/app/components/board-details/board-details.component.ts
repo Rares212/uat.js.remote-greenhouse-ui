@@ -4,6 +4,7 @@ import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
 import {KtdGridLayout, KtdGridLayoutItem, ktdTrackById} from "@katoid/angular-grid-layout";
 import {SensorModel} from "../../models/sensor.model";
+import {UtilService} from "../../util/util.service";
 
 @Component({
   selector: 'app-board-details',
@@ -37,7 +38,7 @@ export class BoardDetailsComponent implements OnInit {
 
   }
 
-  private buildLayout(): void {
+  private generateLayout(): void {
     let i: number = 0;
     this.layout = [];
     for (let sensor of this._board.sensors) {
@@ -50,7 +51,41 @@ export class BoardDetailsComponent implements OnInit {
       }
       i++;
       this.layout = [...this.layout, layoutItem];
+      localStorage.setItem(this.getLayoutKey(), JSON.stringify(this.layout));
     }
+  }
+
+  private getLayout(): void {
+
+    if (UtilService.isNullOrUndefined(localStorage.getItem(this.getLayoutKey()))) {
+      this.generateLayout();
+    } else {
+
+      let savedLayout: KtdGridLayout = JSON.parse(localStorage.getItem(this.getLayoutKey())!);
+
+      // Check if the layout saved in local storage contains all the sensors
+      // First check if the number of sensors match
+      // Then check if the sensor IDs match
+
+      if (this._board.sensors.length != savedLayout.length) {
+        this.generateLayout();
+        return;
+      }
+
+      for (let sensor of this._board.sensors) {
+        if (savedLayout.findIndex((gridItem) => gridItem.id === sensor.id) == -1) {
+          this.generateLayout()
+          return;
+        }
+      }
+
+      this.layout = savedLayout;
+    }
+
+  }
+
+  private getLayoutKey(): string {
+    return this._board.id + '-layout';
   }
 
   private getX(index: number) {
@@ -67,13 +102,14 @@ export class BoardDetailsComponent implements OnInit {
 
   onLayoutUpdate(layout: KtdGridLayout) {
     this.layout = layout;
+    localStorage.setItem(this.getLayoutKey(), JSON.stringify(this.layout));
   }
 
   onBoardChange(): void {
     this.greenhouseService.getSensors(this._board).subscribe(
       sensors => {
         this._board.sensors = sensors;
-        this.buildLayout();
+        this.getLayout();
         console.log(this.layout);
       }
     );
