@@ -42,4 +42,12 @@ export class UtilService {
     newDate.setHours(23, 59, 59, 999);
     return newDate;
   }
+
+  public static clamp(x: number, min: number, max: number): number {
+    return Math.min(Math.max(x, min), max);
+  }
+
+  public static waterHeightToLiters(height: number): number {
+    return this.clamp(height * 3.4 - 9.16, 0.0, 250);
+  }
 }

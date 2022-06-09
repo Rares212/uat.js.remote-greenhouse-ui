@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {HttpClientModule} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
-import { BoardDetailsComponent } from './components/board-details/board-details.component';
-import { SensorDetailsComponent } from './components/sensor-details/sensor-details.component';
+import {BoardDetailsComponent} from './components/board-details/board-details.component';
+import {SensorDetailsComponent} from './components/sensor-details/sensor-details.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -25,10 +25,11 @@ import {KtdGridModule} from "@katoid/angular-grid-layout";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatDividerModule} from "@angular/material/divider";
-import { GreenhouseDetailsComponent } from './components/greenhouse-details/greenhouse-details.component';
+import {GreenhouseDetailsComponent} from './components/greenhouse-details/greenhouse-details.component';
 import {MatIconModule} from "@angular/material/icon";
-import { UserCardComponent } from './components/user-card/user-card.component';
+import {UserCardComponent} from './components/user-card/user-card.component';
 import {MatChipsModule} from "@angular/material/chips";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [
@@ -62,11 +63,15 @@ import {MatChipsModule} from "@angular/material/chips";
     MatToolbarModule,
     MatDividerModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+
+    TimeagoModule.forRoot()
+
   ],
   providers: [
     DatePipe
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

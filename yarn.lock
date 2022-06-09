@@ -4713,6 +4713,13 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngx-timeago@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-timeago/-/ngx-timeago-2.0.0.tgz#b28634b0c2d24549f8f090fd1989efa1ee4f632a"
+  integrity sha512-5kQZeTPCkegEcSooUu3W0BSOwvxEt1q6zjodwEOYoW/FxETC8Bk1zQF1QOPZLS+Nu3GLA+g1oPXMVBonM+CYQQ==
+  dependencies:
+    tslib "^2.0.0"
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"

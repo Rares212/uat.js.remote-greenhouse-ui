@@ -1,5 +1,5 @@
 export enum MeasurementUnit {
-  CM='CM',
+  CM = 'CM',
   PPM500 = 'PPM500',
   PH = 'PH',
   LUX = 'LUX',
