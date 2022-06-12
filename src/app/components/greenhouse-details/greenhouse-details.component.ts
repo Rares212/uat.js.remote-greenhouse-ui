@@ -16,7 +16,7 @@ export class GreenhouseDetailsComponent implements OnInit {
   dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
 
   boards: BoardModel[] = [];
-  selectedBoard: BoardModel | null = null;
+  selectedBoard: BoardModel = BoardModel.createEmptyBoard();
 
   constructor(private greenhouseService: GreenhouseService) { }
 
@@ -25,7 +25,6 @@ export class GreenhouseDetailsComponent implements OnInit {
     this.greenhouseService.getActivityTimeRange().subscribe(
       timeRange => {
         this.validTimeRange = timeRange;
-        console.log(this.validTimeRange);
       }
     )
 

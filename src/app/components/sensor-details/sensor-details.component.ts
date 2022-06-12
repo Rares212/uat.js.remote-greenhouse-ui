@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SensorModel} from "../../models/sensor.model";
-import {Color, DataItem, ScaleType, Series, StringOrNumberOrDate} from "@swimlane/ngx-charts";
+import {Color, DataItem, ScaleType, Series} from "@swimlane/ngx-charts";
 import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
 import {UtilService} from "../../util/util.service";
 import {ValueRangeModel} from "../../models/value-range.model";
 import {SensorType} from "../../enum/sensor-type.enum";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {MeasurementUnit} from "../../enum/measurement-unit.enum";
 
 @Component({
   selector: 'app-sensor-details',
@@ -14,6 +14,9 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
   styleUrls: ['./sensor-details.component.scss']
 })
 export class SensorDetailsComponent implements OnInit {
+
+  MeasurementUnit = MeasurementUnit;
+  SensorType = SensorType;
 
   @Input() sensor: SensorModel = SensorModel.createEmptySensor()
 
@@ -64,6 +67,52 @@ export class SensorDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor.sensorType);
     this.onTimeRangeChange();
+    this.buildColorScheme();
+  }
+
+  private buildColorScheme(): void {
+    let mainColor: string;
+    let secondaryColor: string = '#818181';
+
+    switch (this.sensor.sensorType) {
+      case SensorType.PH: {
+        mainColor = '#35b814';
+        break;
+      }
+      case SensorType.EC: {
+        mainColor = '#14b897';
+        break;
+      }
+      case SensorType.WATER_LEVEL: {
+        mainColor = '#14b845';
+        break;
+      }
+      case SensorType.LIGHT: {
+        mainColor = '#1487b8';
+        break;
+      }
+      case SensorType.AMBIENT_TEMP:
+      case SensorType.WATER_TEMP: {
+        mainColor = '#b81487';
+        break;
+      }
+      case SensorType.HUMIDITY: {
+        mainColor = '#4514b8';
+        break;
+      }
+      default: {
+        mainColor = '#14b845';
+        break;
+      }
+    }
+
+    this.colorScheme = {
+      name: 'Chart color scheme',
+      group: ScaleType.Linear,
+      domain: [mainColor, secondaryColor],
+      selectable: true
+    }
+
   }
 
   private buildChartData() {
@@ -81,8 +130,6 @@ export class SensorDetailsComponent implements OnInit {
         this.sensor.measurements = measurements;
         this.buildChartData();
         this.formatMeasurements();
-
-
       }
     );
   }

@@ -20,7 +20,6 @@ export class BoardDetailsComponent implements OnInit {
   layout: KtdGridLayout = []
   trackById = ktdTrackById;
 
-
   get board(): BoardModel {
     return this._board;
   }
@@ -38,7 +37,7 @@ export class BoardDetailsComponent implements OnInit {
 
   }
 
-  private generateLayout(): void {
+  generateLayout(): void {
     let i: number = 0;
     this.layout = [];
     for (let sensor of this._board.sensors) {
@@ -110,7 +109,6 @@ export class BoardDetailsComponent implements OnInit {
       sensors => {
         this._board.sensors = sensors;
         this.getLayout();
-        console.log(this.layout);
       }
     );
   }

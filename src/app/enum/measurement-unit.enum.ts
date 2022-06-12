@@ -3,7 +3,7 @@ export enum MeasurementUnit {
   PPM500 = 'PPM500',
   PH = 'PH',
   LUX = 'LUX',
-  BOOL = 'BOOLEAN',
+  BOOL = 'BOOL',
   CELSIUS = 'CELSIUS',
   PERCENT = 'PERCENT'
 }

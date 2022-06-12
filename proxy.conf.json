@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://jg3qyx7-draghicir.pitunnel.com",
+    "target": "https://atqpfgv-draghicir.pitunnel.com",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"

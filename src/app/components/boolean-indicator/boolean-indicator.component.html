@@ -1,0 +1,7 @@
+<div class="indicator-container">
+  <b style="text-align: center">{{value ? 'On' : 'Off'}}</b>
+
+  <mat-icon *ngIf="value" class="indicator" inline="false" color="primary">lightbulb_circle</mat-icon>
+
+  <mat-icon *ngIf="!value" class="indicator" inline="false" color="warn">lightbulb_circle</mat-icon>
+</div>

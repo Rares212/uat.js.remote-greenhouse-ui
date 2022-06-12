@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+.indicator {
+  display: flex;
+  align-self: center;
+  font-size: 150px;
+  width: 150px;
+  height: 150px;
+}
+
+.indicator-on {
+  color: blue;
+}
+
+.indicator-off {
+  color: gray;
+}
+
+.indicator-container {
+  width: 300px;
+  height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+

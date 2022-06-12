@@ -3,7 +3,7 @@
 
   <div class="data-display-container">
     <div class="gauge-chart">
-      <ngx-charts-gauge *ngIf="sensor.latestMeasurement !== null && sensor.latestMeasurement !== undefined"
+      <ngx-charts-gauge *ngIf="sensor.measurementUnit !== MeasurementUnit.BOOL"
                         [view]="[300,300]"
                         [results]="[sensor.latestMeasurement]"
                         [min]="valueRange.from"
@@ -12,6 +12,10 @@
                         [units]="sensor.measurementUnit.toString()"
                         [scheme]="colorScheme">
       </ngx-charts-gauge>
+      <app-boolean-indicator *ngIf="sensor.measurementUnit === MeasurementUnit.BOOL"
+        [value]="sensor.latestMeasurement.value > 0.0">
+
+      </app-boolean-indicator>
     </div>
 
     <div class="line-chart" #chartContainer
@@ -30,9 +34,10 @@
         [timeline]="timeline"
         [results]="data"
         [gradient]="gradient"
+        [roundDomains]="true"
         [showGridLines]="showGridLines"
-        [referenceLines]="referenceLines"
-        [>
+        [referenceLines]="sensor.referenceLines"
+        [showRefLines]="true">
       </ngx-charts-line-chart>
     </div>
   </div>
