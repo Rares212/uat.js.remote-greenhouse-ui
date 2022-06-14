@@ -38,12 +38,12 @@ export class GreenhouseService {
     params = params.append('sensorId', sensor.id);
 
     const url = environment.baseUrl + environment.measurementsPath;
-    return this.http.get<DataItem[]>(environment.measurementsPath, { headers: this.headers, params: params });
+    return this.http.get<DataItem[]>(url, { headers: this.headers, params: params });
   }
 
   public getActivityTimeRange(): Observable<TimeRangeModel> {
     const url = environment.baseUrl + environment.activityTimeRangePath;
-    return this.http.get<TimeRangeModel>(environment.activityTimeRangePath, { headers: this.headers });
+    return this.http.get<TimeRangeModel>(url, { headers: this.headers });
   }
 
   private getDateParams(from?: Date, to?: Date): HttpParams {
