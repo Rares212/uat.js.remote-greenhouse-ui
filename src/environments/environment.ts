@@ -5,11 +5,13 @@
 export const environment = {
   production: false,
 
-  greenhousePath: '/api/greenhouse',
-  activityTimeRangePath: 'api/greenhouse/activity-time-range',
-  boardsPath: '/api/boards',
-  sensorsPath: '/api/sensors/by-board',
-  measurementsPath: '/api/measurements'
+  baseUrl: '/api',
+
+  greenhousePath: '/greenhouse',
+  activityTimeRangePath: '/greenhouse/activity-time-range',
+  boardsPath: '/boards',
+  sensorsPath: '/sensors/by-board',
+  measurementsPath: '/measurements'
 
 };
 

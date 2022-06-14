@@ -1,9 +1,11 @@
 export const environment = {
   production: true,
 
-  greenhousePath: '/api/greenhouse',
-  activityTimeRangePath: 'api/greenhouse/activity-time-range',
-  boardsPath: '/api/boards',
-  sensorsPath: '/api/sensors/by-board',
-  measurementsPath: '/api/measurements'
+  baseUrl: 'https://uat_tm-draghicir.pitunnel.com/api',
+
+  greenhousePath: '/greenhouse',
+  activityTimeRangePath: '/greenhouse/activity-time-range',
+  boardsPath: '/boards',
+  sensorsPath: '/sensors/by-board',
+  measurementsPath: '/measurements'
 };
