@@ -1,7 +1,8 @@
 <div class="buttons-container">
   <mat-form-field appearance="fill">
     <mat-label>Choose a date</mat-label>
-    <mat-date-range-input [rangePicker]="measurementsDatePicker" [min]="validTimeRange.from"
+    <mat-date-range-input [rangePicker]="measurementsDatePicker"
+                          [min]="validTimeRange.from"
                           [max]="validTimeRange.to">
       <input matStartDate placeholder="Start date" (dateInput)="onStartDateSelected($event.value)">
       <input matEndDate placeholder="End date" (dateInput)="onEndDateSelected($event.value)">

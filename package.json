@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json -o",
-    "build": "ng build --proxy-config proxy.conf.json",
+    "dev": "ng serve --proxy-config proxy.conf.dev.json -o",
+    "prod": "ng serve --proxy-config proxy.conf.prod.json -o",
+    "build": "ng build --proxy-config proxy.conf.dev.json",
     "build-github-pages": "ng build --output-path docs --base-href /uat.js.remote-greenhouse-ui/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

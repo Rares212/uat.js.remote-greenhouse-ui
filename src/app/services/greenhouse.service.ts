@@ -49,10 +49,11 @@ export class GreenhouseService {
   private getDateParams(from?: Date, to?: Date): HttpParams {
     let params: HttpParams = new HttpParams();
     if (!UtilService.isNullOrUndefined(from)) {
-      params = params.append('from', this.utilService.formatDateTime(from!));
+      params = params.append('from', from!.toISOString());
+
     }
     if (!UtilService.isNullOrUndefined(to)) {
-      params = params.append('to', this.utilService.formatDateTime(to!));
+      params = params.append('to', to!.toISOString());
     }
     return params;
   }
