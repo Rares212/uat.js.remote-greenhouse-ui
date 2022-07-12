@@ -11,6 +11,8 @@ import {UtilService} from "../../util/util.service";
 })
 export class GreenhouseDetailsComponent implements OnInit {
 
+  loadingData: boolean = false;
+
   validTimeRange: TimeRangeModel = TimeRangeModel.createFullTimeRange();
 
   dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
@@ -28,13 +30,16 @@ export class GreenhouseDetailsComponent implements OnInit {
       }
     )
 
+    this.loadingData = true;
     this.greenhouseService.getBoards().subscribe(
       response => {
         this.boards = response;
         if (this.boards.length > 0) {
           this.selectedBoard = this.boards[0];
         }
-      }
+      },
+      () => {},
+      () => {this.loadingData = false}
     );
 
   }

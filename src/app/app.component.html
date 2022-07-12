@@ -1,1 +1,2 @@
+<mat-progress-bar *ngIf="(loader.value$ | async) && (loader.value$ | async) !== 0" mode="indeterminate" [value]="loader.value$ | async"></mat-progress-bar>
 <router-outlet></router-outlet>

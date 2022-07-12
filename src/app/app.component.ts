@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoadingBarService} from "@ngx-loading-bar/core";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'uat.js.remote-greenhouse-ui';
+  title = 'UAT Greenhouse Interface';
+
+  constructor(public loader: LoadingBarService) {
+  }
 }

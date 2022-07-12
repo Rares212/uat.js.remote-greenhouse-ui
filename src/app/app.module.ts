@@ -31,8 +31,24 @@ import {UserCardComponent} from './components/user-card/user-card.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {TimeagoModule} from "ngx-timeago";
 import {MatButton, MatButtonModule} from "@angular/material/button";
-import { BooleanIndicatorComponent } from './components/boolean-indicator/boolean-indicator.component';
+import {BooleanIndicatorComponent} from './components/boolean-indicator/boolean-indicator.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {LoadingBarHttpClientModule} from "@ngx-loading-bar/http-client";
+import {LOADING_BAR_CONFIG, LoadingBarModule} from "@ngx-loading-bar/core";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {
+  NgHttpCachingConfig,
+  NgHttpCachingEntry,
+  NgHttpCachingLocalStorage,
+  NgHttpCachingModule,
+  NgHttpCachingSessionStorage
+} from "ng-http-caching";
+
+const httpCachingConfig: NgHttpCachingConfig = {
+  version: '1',
+  lifetime: 1000 * 60 * 5, // Expire cache after 5 minutes
+  store: new NgHttpCachingSessionStorage()
+}
 
 @NgModule({
   declarations: [
@@ -45,37 +61,46 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     UserCardComponent,
     BooleanIndicatorComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
 
-        NgbModule,
-        NgxChartsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatNativeDateModule,
-        MatSidenavModule,
-        MatCardModule,
-        MatGridListModule,
-        MatSlideToggleModule,
-        FormsModule,
-        KtdGridModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatDividerModule,
-        MatIconModule,
-        MatButtonModule,
-        MatChipsModule,
+    NgbModule,
+    NgxChartsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    FormsModule,
+    KtdGridModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
 
-        TimeagoModule.forRoot(),
-        MatProgressSpinnerModule
+    TimeagoModule.forRoot(),
 
-    ],
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
+
+    //NgHttpCachingModule.forRoot(httpCachingConfig)
+  ],
   providers: [
-    DatePipe
+    DatePipe,
+    {
+      provide: LOADING_BAR_CONFIG,
+      useValue: {latencyThreshold: 100}
+    }
   ],
   bootstrap: [AppComponent]
 })

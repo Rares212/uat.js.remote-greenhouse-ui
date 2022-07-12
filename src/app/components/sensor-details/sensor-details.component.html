@@ -2,12 +2,8 @@
   <mat-card-title style="text-align: center">
     {{sensor.name}}
   </mat-card-title>
-  <mat-card-subtitle>
-
-  </mat-card-subtitle>
 
   <div class="data-display-container">
-
     <div class="gauge-chart">
       <ngx-charts-gauge *ngIf="sensor.measurementUnit !== MeasurementUnit.BOOL"
                         [view]="[300,300]"

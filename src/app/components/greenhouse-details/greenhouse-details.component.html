@@ -3,7 +3,8 @@
     <mat-label>Choose a date</mat-label>
     <mat-date-range-input [rangePicker]="measurementsDatePicker"
                           [min]="validTimeRange.from"
-                          [max]="validTimeRange.to">
+                          [max]="validTimeRange.to"
+                          [disabled]="selectedBoard === undefined">
       <input matStartDate placeholder="Start date" (dateInput)="onStartDateSelected($event.value)">
       <input matEndDate placeholder="End date" (dateInput)="onEndDateSelected($event.value)">
     </mat-date-range-input>
@@ -14,7 +15,8 @@
   </mat-form-field>
 
   <button mat-flat-button style="height: 52px" color="primary" class="mat-button"
-    (click)="board.generateLayout()">
+          [disabled]="selectedBoard === undefined"
+          (click)="board.generateLayout()">
     Reset layout
   </button>
 </div>

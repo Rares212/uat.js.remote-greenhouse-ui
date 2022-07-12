@@ -1285,6 +1285,20 @@
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-13.2.6.tgz#8fe9c54dce13ec291eeef352ed773b77d1d0bed0"
   integrity sha512-N8SvRV91+/57TcAfbghc0k0tKCukw/7KqbDaLPAQTGFekJ4xMGT3elMzOyBXTH3Hvp5HL8/hiBt2tG04qiMf+w==
 
+"@ngx-loading-bar/core@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/core/-/core-6.0.2.tgz#8e0bfc106140804ca7195d8bbbc75858434b5fd4"
+  integrity sha512-8r+OQEYXwvU+2ZXK6CY3Guh2yJuG8pQ2XNryHVbPZB2Ub3VmzhGWqjxXAQgxmsi+GxrD4m+nGmGZPeOrNH1ztA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngx-loading-bar/http-client@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/http-client/-/http-client-6.0.2.tgz#8210ef31a97e97e53780cab0653d459b56b3e893"
+  integrity sha512-wMzyg9YBvHlOqYMQK82j7fnF6GlXb1RNg/rjvl34uq3+xsqic9vUhEziEDlVEKvpbnXh5yMd05Aj7J4GwRaFcw==
+  dependencies:
+    tslib "^2.0.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -4717,6 +4731,13 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+ng-http-caching@^13.0.10:
+  version "13.0.10"
+  resolved "https://registry.yarnpkg.com/ng-http-caching/-/ng-http-caching-13.0.10.tgz#066d3b99b1e4f8697e17881da4c062ed36d1953f"
+  integrity sha512-xYu6cup/byJZx9AksGlMH9wMOLRYmKtvslRNlighChJXU5brHz1CMPpQ+A2AqAXRGQbFZrpYcINgjwx9FmztNw==
+  dependencies:
+    tslib "^2.3.0"
 
 ngx-timeago@^2.0.0:
   version "2.0.0"
