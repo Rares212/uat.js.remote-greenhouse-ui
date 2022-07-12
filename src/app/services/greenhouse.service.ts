@@ -50,7 +50,6 @@ export class GreenhouseService {
     let params: HttpParams = new HttpParams();
     if (!UtilService.isNullOrUndefined(from)) {
       params = params.append('from', from!.toISOString());
-
     }
     if (!UtilService.isNullOrUndefined(to)) {
       params = params.append('to', to!.toISOString());

@@ -18,7 +18,9 @@ export class SensorDetailsComponent implements OnInit {
   MeasurementUnit = MeasurementUnit;
   SensorType = SensorType;
 
-  @Input() sensor: SensorModel = SensorModel.createEmptySensor()
+  @Input() sensor: SensorModel | undefined = undefined;
+
+  loadingData: boolean = false;
 
   // Layout item
   @Input() width: number = 1;
@@ -65,7 +67,7 @@ export class SensorDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor.sensorType);
+    this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor!.sensorType);
     this.onTimeRangeChange();
     this.buildColorScheme();
   }
@@ -74,7 +76,7 @@ export class SensorDetailsComponent implements OnInit {
     let mainColor: string;
     let secondaryColor: string = '#818181';
 
-    switch (this.sensor.sensorType) {
+    switch (this.sensor!.sensorType) {
       case SensorType.PH: {
         mainColor = '#35b814';
         break;
@@ -118,35 +120,34 @@ export class SensorDetailsComponent implements OnInit {
   private buildChartData() {
     this.data = [
       {
-        name: this.sensor.name,
-        series: this.sensor.measurements
+        name: this.sensor!.name,
+        series: this.sensor!.measurements
       }
     ];
   }
 
   onTimeRangeChange(): void {
-    this.greenhouseService.getMeasurements(this.sensor, this._dataTimeRange.from, this._dataTimeRange.to).subscribe(
+    this.loadingData = true;
+    this.greenhouseService.getMeasurements(this.sensor!, this._dataTimeRange.from, this._dataTimeRange.to).subscribe(
       measurements => {
-        this.sensor.measurements = measurements;
+        this.sensor!.measurements = measurements;
         this.buildChartData();
         this.formatMeasurements();
-      }
+      },
+      () => {},
+    () => {this.loadingData = false;}
     );
   }
 
   private formatMeasurements(): void {
-    for (let measurement of this.sensor.measurements) {
+    for (let measurement of this.sensor!.measurements) {
       measurement.name = new Date(measurement.name as number);
     }
 
-    this.sensor.latestMeasurement.name = new Date(this.sensor.latestMeasurement.name);
-    //this.sensor.latestMeasurement.value = this.sensor.latestMeasurement.value.toFixed(this.fractionDigits);
+    this.sensor!.latestMeasurement.name = new Date(this.sensor!.latestMeasurement.name);
   }
 
   formatValue(value: any): string {
     return value.toFixed(this.fractionDigits);
   }
-
-
-
 }

@@ -32,6 +32,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {TimeagoModule} from "ngx-timeago";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import { BooleanIndicatorComponent } from './components/boolean-indicator/boolean-indicator.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -44,34 +45,35 @@ import { BooleanIndicatorComponent } from './components/boolean-indicator/boolea
     UserCardComponent,
     BooleanIndicatorComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
 
-    NgbModule,
-    NgxChartsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatSidenavModule,
-    MatCardModule,
-    MatGridListModule,
-    MatSlideToggleModule,
-    FormsModule,
-    KtdGridModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatIconModule,
-    MatButtonModule,
-    MatChipsModule,
+        NgbModule,
+        NgxChartsModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        MatSidenavModule,
+        MatCardModule,
+        MatGridListModule,
+        MatSlideToggleModule,
+        FormsModule,
+        KtdGridModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MatIconModule,
+        MatButtonModule,
+        MatChipsModule,
 
-    TimeagoModule.forRoot()
+        TimeagoModule.forRoot(),
+        MatProgressSpinnerModule
 
-  ],
+    ],
   providers: [
     DatePipe
   ],

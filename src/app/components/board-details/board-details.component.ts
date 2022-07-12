@@ -13,22 +13,26 @@ import {UtilService} from "../../util/util.service";
 })
 export class BoardDetailsComponent implements OnInit {
 
-  private _board: BoardModel = BoardModel.createEmptyBoard();
+  private _board: BoardModel | undefined = undefined;
   @Input() dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
   @Input() sensorColumns: number = 3;
+
+  loadingSensors: boolean = false;
 
   layout: KtdGridLayout = []
   trackById = ktdTrackById;
 
-  get board(): BoardModel {
+  get board(): BoardModel | undefined {
     return this._board;
   }
 
   @Input()
-  set board(value: BoardModel) {
-    this._board = value;
-    this._board.sensors = [];
-    this.onBoardChange();
+  set board(value: BoardModel | undefined) {
+    if (!UtilService.isNullOrUndefined(value)) {
+      this._board = value;
+      this._board!.sensors = [];
+      this.onBoardChange();
+    }
   }
 
   constructor(private greenhouseService: GreenhouseService) { }
@@ -38,9 +42,13 @@ export class BoardDetailsComponent implements OnInit {
   }
 
   generateLayout(): void {
+    if (UtilService.isNullOrUndefined(this._board)) {
+      return;
+    }
+
     let i: number = 0;
     this.layout = [];
-    for (let sensor of this._board.sensors) {
+    for (let sensor of this._board!.sensors) {
       const layoutItem: KtdGridLayoutItem = {
         id: sensor.id,
         x: this.getX(i),
@@ -56,6 +64,10 @@ export class BoardDetailsComponent implements OnInit {
 
   private getLayout(): void {
 
+    if (UtilService.isNullOrUndefined(this._board)) {
+      return;
+    }
+
     if (UtilService.isNullOrUndefined(localStorage.getItem(this.getLayoutKey()))) {
       this.generateLayout();
     } else {
@@ -66,12 +78,12 @@ export class BoardDetailsComponent implements OnInit {
       // First check if the number of sensors match
       // Then check if the sensor IDs match
 
-      if (this._board.sensors.length != savedLayout.length) {
+      if (this._board!.sensors.length != savedLayout.length) {
         this.generateLayout();
         return;
       }
 
-      for (let sensor of this._board.sensors) {
+      for (let sensor of this._board!.sensors) {
         if (savedLayout.findIndex((gridItem) => gridItem.id === sensor.id) == -1) {
           this.generateLayout()
           return;
@@ -84,7 +96,7 @@ export class BoardDetailsComponent implements OnInit {
   }
 
   private getLayoutKey(): string {
-    return this._board.id + '-layout';
+    return this._board!.id + '-layout';
   }
 
   private getX(index: number) {
@@ -96,7 +108,7 @@ export class BoardDetailsComponent implements OnInit {
   }
 
   findSensorById(id: string): SensorModel {
-    return this._board.sensors.find(sensor => sensor.id == id)!;
+    return this._board!.sensors.find(sensor => sensor.id == id)!;
   }
 
   onLayoutUpdate(layout: KtdGridLayout) {
@@ -105,11 +117,14 @@ export class BoardDetailsComponent implements OnInit {
   }
 
   onBoardChange(): void {
-    this.greenhouseService.getSensors(this._board).subscribe(
+    this.loadingSensors = true;
+    this.greenhouseService.getSensors(this._board!).subscribe(
       sensors => {
-        this._board.sensors = sensors;
+        this._board!.sensors = sensors;
         this.getLayout();
-      }
+      },
+      () => {},
+      () => {this.loadingSensors = false;}
     );
   }
 

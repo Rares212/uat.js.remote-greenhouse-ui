@@ -1,8 +1,8 @@
 <mat-card class="mat-elevation-z2">
-  <mat-card-subtitle>Last active {{board.lastActiveAt | timeago}} ({{board.lastActiveAt | date:'long'}})</mat-card-subtitle>
+  <mat-card-subtitle *ngIf="board != null && board != undefined">Last active {{board.lastActiveAt | timeago}} ({{board.lastActiveAt | date:'long'}})</mat-card-subtitle>
 
 
-  <ktd-grid [cols]="sensorColumns" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
+  <ktd-grid *ngIf="!loadingSensors" [cols]="sensorColumns" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
     <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
       <app-sensor-details [width]="item.w"
                           [sensor]="findSensorById(item.id)"
@@ -10,6 +10,8 @@
       </app-sensor-details>
     </ktd-grid-item>
   </ktd-grid>
+
+  <mat-spinner style="text-align: center" *ngIf="loadingSensors"></mat-spinner>
 
 </mat-card>
 <mat-divider></mat-divider>

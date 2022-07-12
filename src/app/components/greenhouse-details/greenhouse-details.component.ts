@@ -16,7 +16,7 @@ export class GreenhouseDetailsComponent implements OnInit {
   dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
 
   boards: BoardModel[] = [];
-  selectedBoard: BoardModel = BoardModel.createEmptyBoard();
+  selectedBoard: BoardModel | undefined = undefined;
 
   constructor(private greenhouseService: GreenhouseService) { }
 
