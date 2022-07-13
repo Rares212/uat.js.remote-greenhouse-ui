@@ -42,3 +42,12 @@
   align-items: normal;
   align-content: normal;
 }
+
+.card-title {
+  width: 100%;
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  font-size: inherit;
+}

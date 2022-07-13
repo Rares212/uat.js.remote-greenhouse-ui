@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {SensorModel} from "../../models/sensor.model";
 import {Color, DataItem, ScaleType, Series} from "@swimlane/ngx-charts";
 import {GreenhouseService} from "../../services/greenhouse.service";
@@ -21,6 +21,13 @@ export class SensorDetailsComponent implements OnInit {
   @Input() sensor: SensorModel | undefined = undefined;
 
   loadingData: boolean = false;
+
+  heightPx: number = 150;
+  gaugeScaleFactor = 0.6;
+  gaugeSegments = 10;
+
+  indicatorView: [number, number] = [150, 150];
+  chartView: [number, number] = [150, 150];
 
   // Layout item
   @Input() width: number = 1;
@@ -70,6 +77,7 @@ export class SensorDetailsComponent implements OnInit {
     this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor!.sensorType);
     this.onTimeRangeChange();
     this.buildColorScheme();
+    window.dispatchEvent(new Event('resize'));
   }
 
   private buildColorScheme(): void {
@@ -126,6 +134,13 @@ export class SensorDetailsComponent implements OnInit {
     ];
   }
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.heightPx = event.target.innerWidth / 12 + 150;
+    this.gaugeSegments = Math.round(event.target.innerWidth / 400 + 4)
+  }
+
   onTimeRangeChange(): void {
     this.loadingData = true;
     this.greenhouseService.getMeasurements(this.sensor!, this._dataTimeRange.from, this._dataTimeRange.to).subscribe(
@@ -149,5 +164,9 @@ export class SensorDetailsComponent implements OnInit {
 
   formatValue(value: any): string {
     return value.toFixed(this.fractionDigits);
+  }
+
+  formatBool(value: any): string {
+    return value !== 0.0 ? 'On' : 'Off';
   }
 }

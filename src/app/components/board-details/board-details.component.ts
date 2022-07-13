@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BoardModel} from "../../models/board.model";
 import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
-import {KtdGridLayout, KtdGridLayoutItem, ktdTrackById} from "@katoid/angular-grid-layout";
+import {KtdGridComponent, KtdGridLayout, KtdGridLayoutItem, ktdTrackById} from "@katoid/angular-grid-layout";
 import {SensorModel} from "../../models/sensor.model";
 import {UtilService} from "../../util/util.service";
+import {debounceTime, filter, fromEvent, merge, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-board-details',
@@ -19,8 +20,12 @@ export class BoardDetailsComponent implements OnInit {
 
   loadingSensors: boolean = false;
 
+  @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent | undefined;
   layout: KtdGridLayout = []
   trackById = ktdTrackById;
+
+  resizeSubscription: Subscription | undefined;
+  autoResize: boolean = true;
 
   get board(): BoardModel | undefined {
     return this._board;
@@ -38,7 +43,15 @@ export class BoardDetailsComponent implements OnInit {
   constructor(private greenhouseService: GreenhouseService) { }
 
   ngOnInit(): void {
-
+    this.resizeSubscription = merge(
+      fromEvent(window, 'resize'),
+      fromEvent(window, 'orientationchange')
+    ).pipe(
+      debounceTime(50),
+      filter(() => this.autoResize)
+    ).subscribe(() => {
+      this.grid!.resize();
+    });
   }
 
   generateLayout(): void {

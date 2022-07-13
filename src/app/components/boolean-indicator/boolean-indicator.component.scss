@@ -28,3 +28,26 @@
 
 }
 
+// Portrait
+@media (max-aspect-ratio: 1/1) {
+  .indicator {
+    display: flex;
+    align-self: center;
+    font-size: 75px;
+    width: 75px;
+    height: 75px;
+  }
+  .indicator-container {
+    width: 150px;
+    height: 150px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
+
+
+

@@ -2,7 +2,7 @@
   <mat-card-subtitle *ngIf="board != null && board != undefined">Last active {{board.lastActiveAt | timeago}} ({{board.lastActiveAt | date:'long'}})</mat-card-subtitle>
 
 
-  <ktd-grid *ngIf="!loadingSensors" [cols]="sensorColumns" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
+  <ktd-grid [cols]="2" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
     <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
       <app-sensor-details [width]="item.w"
                           [sensor]="findSensorById(item.id)"

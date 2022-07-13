@@ -1,27 +1,46 @@
 <mat-card *ngIf="sensor !== undefined">
-  <mat-card-title style="text-align: center">
+  <mat-card-title class="card-title">
     {{sensor.name}}
   </mat-card-title>
 
   <div class="data-display-container">
     <div class="gauge-chart">
       <ngx-charts-gauge *ngIf="sensor.measurementUnit !== MeasurementUnit.BOOL"
-                        [view]="[300,300]"
+                        [view]="[heightPx * gaugeScaleFactor, heightPx]"
                         [results]="[sensor.latestMeasurement]"
                         [min]="valueRange.from"
                         [max]="valueRange.to"
+                        [bigSegments]="gaugeSegments"
+                        [smallSegments]="gaugeSegments / 2"
                         [valueFormatting]="formatValue"
+                        [startAngle]="-120"
+                        [angleSpan]="240"
+                        [showAxis]="false"
                         [units]="sensor.measurementUnit.toString()"
                         [scheme]="colorScheme">
       </ngx-charts-gauge>
-      <app-boolean-indicator *ngIf="sensor.measurementUnit === MeasurementUnit.BOOL"
+      <!--app-boolean-indicator *ngIf="sensor.measurementUnit === MeasurementUnit.BOOL"
         [value]="sensor.latestMeasurement.value > 0.0">
-      </app-boolean-indicator>
+      </app-boolean-indicator-->
+      <ngx-charts-gauge *ngIf="sensor.measurementUnit === MeasurementUnit.BOOL"
+                        [view]="[heightPx * gaugeScaleFactor, heightPx]"
+                        [results]="[sensor.latestMeasurement]"
+                        [min]="0"
+                        [max]="1"
+                        [bigSegments]="gaugeSegments"
+                        [smallSegments]="gaugeSegments / 2"
+                        [valueFormatting]="formatBool"
+                        [showAxis]="false"
+                        [startAngle]="-180"
+                        [angleSpan]="360"
+                        [units]="'____'"
+                        [scheme]="colorScheme">
+      </ngx-charts-gauge>
     </div>
 
     <div class="line-chart" #chartContainer [class.opened]="width > 1">
       <ngx-charts-line-chart
-        [view]="[chartContainer.offsetWidth, 300]"
+        [view]="[chartContainer.offsetWidth, heightPx]"
         [scheme]="colorScheme"
         [legend]="false"
         [showXAxisLabel]="true"
