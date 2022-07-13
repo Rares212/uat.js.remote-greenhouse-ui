@@ -43,6 +43,9 @@ import {
   NgHttpCachingModule,
   NgHttpCachingSessionStorage
 } from "ng-http-caching";
+import {LoginComponent} from "./pages/login/login.component";
+import {CookieService} from "ngx-cookie-service";
+import {MAT_DIALOG_DEFAULT_OPTIONS} from "@angular/material/dialog";
 
 const httpCachingConfig: NgHttpCachingConfig = {
   version: '1',
@@ -60,6 +63,7 @@ const httpCachingConfig: NgHttpCachingConfig = {
     GreenhouseDetailsComponent,
     UserCardComponent,
     BooleanIndicatorComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,9 +101,14 @@ const httpCachingConfig: NgHttpCachingConfig = {
   ],
   providers: [
     DatePipe,
+    CookieService,
     {
       provide: LOADING_BAR_CONFIG,
       useValue: {latencyThreshold: 100}
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: false}
     }
   ],
   bootstrap: [AppComponent]
