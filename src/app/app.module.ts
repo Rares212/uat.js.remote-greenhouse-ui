@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
 import {BoardDetailsComponent} from './components/board-details/board-details.component';
 import {SensorDetailsComponent} from './components/sensor-details/sensor-details.component';
@@ -46,6 +46,7 @@ import {
 import {LoginComponent} from "./pages/login/login.component";
 import {CookieService} from "ngx-cookie-service";
 import {MAT_DIALOG_DEFAULT_OPTIONS} from "@angular/material/dialog";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 const httpCachingConfig: NgHttpCachingConfig = {
   version: '1',
@@ -109,6 +110,11 @@ const httpCachingConfig: NgHttpCachingConfig = {
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {hasBackdrop: false}
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
