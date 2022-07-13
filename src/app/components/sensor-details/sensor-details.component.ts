@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {SensorModel} from "../../models/sensor.model";
 import {Color, DataItem, ScaleType, Series} from "@swimlane/ngx-charts";
 import {GreenhouseService} from "../../services/greenhouse.service";
@@ -7,6 +7,7 @@ import {UtilService} from "../../util/util.service";
 import {ValueRangeModel} from "../../models/value-range.model";
 import {SensorType} from "../../enum/sensor-type.enum";
 import {MeasurementUnit} from "../../enum/measurement-unit.enum";
+import {ResizedEvent} from "angular-resize-event";
 
 @Component({
   selector: 'app-sensor-details',
@@ -26,24 +27,10 @@ export class SensorDetailsComponent implements OnInit {
   gaugeScaleFactor = 0.6;
   gaugeSegments = 10;
 
-  indicatorView: [number, number] = [150, 150];
-  chartView: [number, number] = [150, 150];
-
   // Layout item
-  @Input() width: number = 1;
+  @Input() layoutWidth: number = 1;
 
-  // Chart options
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  timeline: boolean = true;
-  gradient: boolean = true;
-  showGridLines: boolean = true;
-  showReferenceLines: boolean = false;
-  referenceLines: DataItem[] = [];
+  chartWidth: number = 0;
 
   @Input()
   get dataTimeRange(): TimeRangeModel {
@@ -78,6 +65,7 @@ export class SensorDetailsComponent implements OnInit {
     this.onTimeRangeChange();
     this.buildColorScheme();
     window.dispatchEvent(new Event('resize'));
+
   }
 
   private buildColorScheme(): void {
@@ -134,10 +122,9 @@ export class SensorDetailsComponent implements OnInit {
     ];
   }
 
-
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.heightPx = event.target.innerWidth / 12 + 150;
+    this.heightPx = Math.round(event.target.innerWidth / 12 + 150);
     this.gaugeSegments = Math.round(event.target.innerWidth / 400 + 4)
   }
 
@@ -160,6 +147,10 @@ export class SensorDetailsComponent implements OnInit {
     }
 
     this.sensor!.latestMeasurement.name = new Date(this.sensor!.latestMeasurement.name);
+  }
+
+  onChartWidthChange(event: ResizedEvent) {
+    this.chartWidth = event.newRect.width;
   }
 
   formatValue(value: any): string {

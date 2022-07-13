@@ -47,6 +47,8 @@ import {LoginComponent} from "./pages/login/login.component";
 import {CookieService} from "ngx-cookie-service";
 import {MAT_DIALOG_DEFAULT_OPTIONS} from "@angular/material/dialog";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {AvatarModule} from "ngx-avatar";
+import {AngularResizeEventModule} from "angular-resize-event";
 
 const httpCachingConfig: NgHttpCachingConfig = {
   version: '1',
@@ -71,9 +73,10 @@ const httpCachingConfig: NgHttpCachingConfig = {
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
     NgbModule,
+
     NgxChartsModule,
+
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
@@ -92,6 +95,10 @@ const httpCachingConfig: NgHttpCachingConfig = {
     MatChipsModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+
+    AngularResizeEventModule,
+
+    AvatarModule,
 
     TimeagoModule.forRoot(),
 

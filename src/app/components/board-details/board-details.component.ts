@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {BoardModel} from "../../models/board.model";
 import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
@@ -16,9 +16,11 @@ export class BoardDetailsComponent implements OnInit {
 
   private _board: BoardModel | undefined = undefined;
   @Input() dataTimeRange: TimeRangeModel = TimeRangeModel.createDailyTimeRange(new Date());
-  @Input() sensorColumns: number = 3;
+  sensorColumns: number = 3;
 
   loadingSensors: boolean = false;
+
+  rowHeight: number = 300;
 
   @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent | undefined;
   layout: KtdGridLayout = []
@@ -139,6 +141,14 @@ export class BoardDetailsComponent implements OnInit {
       () => {},
       () => {this.loadingSensors = false;}
     );
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    const newSensorColumns =
+    this.sensorColumns = Math.round(2 + event.target.innerWidth / 1000);
+    this.grid?.compactLayout();
+    this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 24);
   }
 
 }

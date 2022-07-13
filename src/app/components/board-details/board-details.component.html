@@ -1,10 +1,9 @@
 <mat-card class="mat-elevation-z2">
   <mat-card-subtitle *ngIf="board != null && board != undefined">Last active {{board.lastActiveAt | timeago}} ({{board.lastActiveAt | date:'long'}})</mat-card-subtitle>
 
-
-  <ktd-grid [cols]="2" [rowHeight]="360" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
+  <ktd-grid [cols]="sensorColumns" [rowHeight]="rowHeight" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
     <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
-      <app-sensor-details [width]="item.w"
+      <app-sensor-details [layoutWidth]="item.w"
                           [sensor]="findSensorById(item.id)"
                           [dataTimeRange]="dataTimeRange">
       </app-sensor-details>

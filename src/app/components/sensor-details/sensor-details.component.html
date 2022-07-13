@@ -38,23 +38,23 @@
       </ngx-charts-gauge>
     </div>
 
-    <div class="line-chart" #chartContainer [class.opened]="width > 1">
+    <div class="line-chart" (resized)="onChartWidthChange($event)" [class.opened]="layoutWidth > 1">
       <ngx-charts-line-chart
-        [view]="[chartContainer.offsetWidth, heightPx]"
+        [view]="[chartWidth, heightPx]"
         [scheme]="colorScheme"
         [legend]="false"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
-        [xAxis]="xAxis"
+        [xAxis]="true"
         [xAxisLabel]="'Time'"
         [trimXAxisTicks]="true"
-        [yAxis]="yAxis"
+        [yAxis]="true"
         [yAxisLabel]="sensor.measurementUnit"
-        [timeline]="timeline"
+        [timeline]="true"
         [results]="data"
-        [gradient]="gradient"
+        [gradient]="true"
         [roundDomains]="true"
-        [showGridLines]="showGridLines"
+        [showGridLines]="true"
         [referenceLines]="sensor.referenceLines"
         [showRefLines]="true">
       </ngx-charts-line-chart>
