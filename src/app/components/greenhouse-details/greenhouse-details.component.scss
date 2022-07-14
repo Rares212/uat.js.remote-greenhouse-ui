@@ -2,7 +2,33 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-;
+  //justify-content: space-around;
   align-items: normal;
   align-content: normal;
+}
+
+.toolbar-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: normal;
+  align-content: stretch;
+}
+
+.reset-button {
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 52px;
+}
+
+.refresh-button {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.refresh-icon {
+
 }

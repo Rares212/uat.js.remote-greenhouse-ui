@@ -28,7 +28,8 @@ export class SensorDetailsComponent implements OnInit {
   gaugeSegments = 10;
 
   // Layout item
-  @Input() layoutWidth: number = 1;
+  @Input() gridItemWidth: number = 1;
+  @Input() layoutColumns: number = 1;
 
   chartWidth: number = 0;
 

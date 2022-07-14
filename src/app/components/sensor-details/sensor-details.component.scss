@@ -2,6 +2,46 @@
   --bordersize: 1px;
 }
 
+.gauge-chart.opened {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+
+  transition: ease-in-out 800ms width;
+}
+
+
+.gauge-chart {
+  width: 0;
+  overflow-x: hidden;
+
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: center;
+  order: 0;
+
+  align-content: center;
+  align-items: center;
+
+  transition: ease-in-out 700ms width;
+}
+
+.line-chart.opened {
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: center;
+  order: 0;
+
+  transition: ease-in-out 1000ms flex-grow;
+}
+
 .line-chart {
   width: 0;
   overflow-x: hidden;

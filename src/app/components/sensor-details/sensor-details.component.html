@@ -4,7 +4,8 @@
   </mat-card-title>
 
   <div class="data-display-container">
-    <div class="gauge-chart">
+    <div class="gauge-chart" [class.opened]="!(layoutColumns === 2 && gridItemWidth === 2)"
+         [style.width.px]="!(layoutColumns === 2 && gridItemWidth === 2) ? heightPx * gaugeScaleFactor : null">
       <ngx-charts-gauge *ngIf="sensor.measurementUnit !== MeasurementUnit.BOOL"
                         [view]="[heightPx * gaugeScaleFactor, heightPx]"
                         [results]="[sensor.latestMeasurement]"
@@ -38,7 +39,7 @@
       </ngx-charts-gauge>
     </div>
 
-    <div class="line-chart" (resized)="onChartWidthChange($event)" [class.opened]="layoutWidth > 1">
+    <div class="line-chart" (resized)="onChartWidthChange($event)" [class.opened]="gridItemWidth > 1">
       <ngx-charts-line-chart
         [view]="[chartWidth, heightPx]"
         [scheme]="colorScheme"

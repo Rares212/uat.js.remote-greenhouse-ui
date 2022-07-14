@@ -3,7 +3,8 @@
 
   <ktd-grid [cols]="sensorColumns" [rowHeight]="rowHeight" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)" >
     <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
-      <app-sensor-details [layoutWidth]="item.w"
+      <app-sensor-details [gridItemWidth]="item.w"
+                          [layoutColumns]="sensorColumns"
                           [sensor]="findSensorById(item.id)"
                           [dataTimeRange]="dataTimeRange">
       </app-sensor-details>

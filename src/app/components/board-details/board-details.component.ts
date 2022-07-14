@@ -145,9 +145,11 @@ export class BoardDetailsComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    const newSensorColumns =
-    this.sensorColumns = Math.round(2 + event.target.innerWidth / 1000);
-    this.grid?.compactLayout();
+    const newSensorColumns = Math.floor(2 + event.target.innerWidth / 700);
+    if (newSensorColumns !== this.sensorColumns) {
+      this.sensorColumns = newSensorColumns;
+      this.generateLayout();
+    }
     this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 24);
   }
 

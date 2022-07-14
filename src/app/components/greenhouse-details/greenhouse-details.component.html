@@ -1,24 +1,33 @@
-<div class="buttons-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <mat-date-range-input [rangePicker]="measurementsDatePicker"
-                          [min]="validTimeRange.from"
-                          [max]="validTimeRange.to"
-                          [disabled]="selectedBoard === undefined">
-      <input matStartDate placeholder="Start date" (dateInput)="onStartDateSelected($event.value)">
-      <input matEndDate placeholder="End date" (dateInput)="onEndDateSelected($event.value)">
-    </mat-date-range-input>
+<div class="toolbar-container">
+  <div class="buttons-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <mat-date-range-input [rangePicker]="measurementsDatePicker"
+                            [min]="validTimeRange.from"
+                            [max]="validTimeRange.to"
+                            [disabled]="selectedBoard === undefined">
+        <input matStartDate placeholder="Start date" (dateInput)="onStartDateSelected($event.value)">
+        <input matEndDate placeholder="End date" (dateInput)="onEndDateSelected($event.value)">
+      </mat-date-range-input>
 
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="measurementsDatePicker"></mat-datepicker-toggle>
-    <mat-date-range-picker #measurementsDatePicker></mat-date-range-picker>
-  </mat-form-field>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="measurementsDatePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #measurementsDatePicker></mat-date-range-picker>
+    </mat-form-field>
 
-  <button mat-flat-button style="height: 52px" color="primary" class="mat-button"
-          [disabled]="selectedBoard === undefined"
-          (click)="board.generateLayout()">
-    Reset layout
+    <button mat-raised-button class="mat-button reset-button"
+            [disabled]="selectedBoard === undefined"
+            (click)="board.generateLayout()">
+      Reset layout
+    </button>
+  </div>
+
+  <button mat-mini-fab color="primary" class="mat-button refresh-button"
+          [disabled]="this.loadingData"
+          (click)="this.refreshData()">
+    <mat-icon  >refresh</mat-icon>
   </button>
+
 </div>
 
 <mat-tab-group class="mat-tab-group" (selectedIndexChange)="onTabIndexChange($event)">

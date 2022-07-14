@@ -23,13 +23,19 @@ export class GreenhouseDetailsComponent implements OnInit {
   constructor(private greenhouseService: GreenhouseService) { }
 
   ngOnInit(): void {
+    this.fetchTimeRange();
+    this.fetchBoards();
+  }
 
+  private fetchTimeRange() {
     this.greenhouseService.getActivityTimeRange().subscribe(
       timeRange => {
         this.validTimeRange = timeRange;
       }
-    )
+    );
+  }
 
+  private fetchBoards() {
     this.loadingData = true;
     this.greenhouseService.getBoards().subscribe(
       response => {
@@ -38,10 +44,17 @@ export class GreenhouseDetailsComponent implements OnInit {
           this.selectedBoard = this.boards[0];
         }
       },
-      () => {},
-      () => {this.loadingData = false}
+      () => {
+      },
+      () => {
+        this.loadingData = false
+      }
     );
+  }
 
+  public refreshData() {
+    this.fetchTimeRange();
+    this.fetchBoards();
   }
 
   onStartDateSelected(date: Date | null) {
