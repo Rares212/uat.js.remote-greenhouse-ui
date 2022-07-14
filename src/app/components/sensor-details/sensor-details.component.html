@@ -43,6 +43,10 @@
       <ngx-charts-line-chart
         (mouseenter)="chartInteractionStart.emit('')"
         (mouseleave)="chartInteractionEnd.emit('')"
+        (mousedown)="chartInteractionStart.emit('')"
+        (mouseup)="chartInteractionEnd.emit('')"
+        (touchstart)="chartInteractionStart.emit('')"
+        (touchend)="chartInteractionEnd.emit('')"
         [view]="[chartWidth, heightPx]"
         [scheme]="colorScheme"
         [legend]="false"
