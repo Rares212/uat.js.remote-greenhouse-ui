@@ -41,11 +41,13 @@
 
     <div class="line-chart" (resized)="onChartWidthChange($event)" [class.opened]="gridItemWidth > 1">
       <ngx-charts-line-chart
+        (mouseenter)="chartInteractionStart.emit('')"
+        (mouseleave)="chartInteractionEnd.emit('')"
         [view]="[chartWidth, heightPx]"
         [scheme]="colorScheme"
         [legend]="false"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
+        [showXAxisLabel]="this.layoutColumns > 2"
+        [showYAxisLabel]="this.layoutColumns > 2"
         [xAxis]="true"
         [xAxisLabel]="'Time'"
         [trimXAxisTicks]="true"

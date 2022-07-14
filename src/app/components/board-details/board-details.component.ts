@@ -35,6 +35,9 @@ export class BoardDetailsComponent implements OnInit {
   resizeSubscription: Subscription | undefined;
   autoResize: boolean = true;
 
+  dragThreshold: number = 10;
+  isDraggable: boolean = true;
+
   get board(): BoardModel | undefined {
     return this._board;
   }
@@ -161,5 +164,15 @@ export class BoardDetailsComponent implements OnInit {
       this.getLayout();
     }
     this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 24);
+  }
+
+  onChartInteractionStart() {
+    this.isDraggable = false;
+    console.log(this.isDraggable);
+  }
+
+  onChartInteractionEnd() {
+    this.isDraggable = true;
+    console.log(this.isDraggable);
   }
 }

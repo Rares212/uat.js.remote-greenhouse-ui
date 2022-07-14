@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SensorModel} from "../../models/sensor.model";
 import {Color, DataItem, ScaleType, Series} from "@swimlane/ngx-charts";
 import {GreenhouseService} from "../../services/greenhouse.service";
@@ -58,6 +58,9 @@ export class SensorDetailsComponent implements OnInit {
     selectable: true,
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
+
+  @Output() chartInteractionStart = new EventEmitter<string>();
+  @Output() chartInteractionEnd = new EventEmitter<string>();
 
   resizeSubscription: Subscription | undefined;
 

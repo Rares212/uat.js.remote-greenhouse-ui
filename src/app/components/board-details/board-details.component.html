@@ -4,11 +4,14 @@
   <ktd-grid [cols]="sensorColumns" [rowHeight]="rowHeight" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)"
             (dragEnded)="saveCurrentLayout()" (resizeEnded)="saveCurrentLayout()"
             [scrollableParent]="'boardDetails'">
-    <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1">
+    <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1"
+                   [dragStartThreshold]="dragThreshold" [draggable]="isDraggable">
       <app-sensor-details [gridItemWidth]="item.w"
                           [layoutColumns]="sensorColumns"
                           [sensor]="findSensorById(item.id)"
-                          [dataTimeRange]="dataTimeRange">
+                          [dataTimeRange]="dataTimeRange"
+                          (chartInteractionStart)="onChartInteractionStart()"
+                          (chartInteractionEnd)="onChartInteractionEnd()">
       </app-sensor-details>
     </ktd-grid-item>
   </ktd-grid>
