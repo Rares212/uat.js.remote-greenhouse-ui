@@ -8,6 +8,7 @@ import {ValueRangeModel} from "../../models/value-range.model";
 import {SensorType} from "../../enum/sensor-type.enum";
 import {MeasurementUnit} from "../../enum/measurement-unit.enum";
 import {ResizedEvent} from "angular-resize-event";
+import {debounceTime, filter, fromEvent, merge, Subscription, tap} from "rxjs";
 
 @Component({
   selector: 'app-sensor-details',
@@ -58,6 +59,8 @@ export class SensorDetailsComponent implements OnInit {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
+  resizeSubscription: Subscription | undefined;
+
   constructor(private greenhouseService: GreenhouseService, private utilService: UtilService) {
   }
 
@@ -65,6 +68,17 @@ export class SensorDetailsComponent implements OnInit {
     this.valueRange = ValueRangeModel.createValueRangeModelFromSensorType(this.sensor!.sensorType);
     this.onTimeRangeChange();
     this.buildColorScheme();
+
+    this.resizeSubscription = merge(
+      fromEvent(window, 'resize'),
+      fromEvent(window, 'orientationchange')
+    ).pipe(
+      debounceTime(500),
+      tap(event => {
+        this.onResize(event);
+      })
+    ).subscribe();
+
     window.dispatchEvent(new Event('resize'));
 
   }
@@ -123,7 +137,7 @@ export class SensorDetailsComponent implements OnInit {
     ];
   }
 
-  @HostListener('window:resize', ['$event'])
+
   onResize(event: any) {
     this.heightPx = Math.round(event.target.innerWidth / 12 + 150);
     this.gaugeSegments = Math.round(event.target.innerWidth / 400 + 4)

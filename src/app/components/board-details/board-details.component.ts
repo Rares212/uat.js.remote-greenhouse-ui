@@ -2,10 +2,16 @@ import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {BoardModel} from "../../models/board.model";
 import {GreenhouseService} from "../../services/greenhouse.service";
 import {TimeRangeModel} from "../../models/time-range.model";
-import {KtdGridComponent, KtdGridLayout, KtdGridLayoutItem, ktdTrackById} from "@katoid/angular-grid-layout";
+import {
+  KtdDragStart,
+  KtdGridComponent,
+  KtdGridLayout,
+  KtdGridLayoutItem,
+  ktdTrackById
+} from "@katoid/angular-grid-layout";
 import {SensorModel} from "../../models/sensor.model";
 import {UtilService} from "../../util/util.service";
-import {debounceTime, filter, fromEvent, merge, Subscription} from "rxjs";
+import {debounceTime, filter, fromEvent, merge, Subscription, tap} from "rxjs";
 
 @Component({
   selector: 'app-board-details',
@@ -49,11 +55,13 @@ export class BoardDetailsComponent implements OnInit {
       fromEvent(window, 'resize'),
       fromEvent(window, 'orientationchange')
     ).pipe(
-      debounceTime(50),
-      filter(() => this.autoResize)
-    ).subscribe(() => {
-      this.grid!.resize();
-    });
+      debounceTime(500),
+      filter(() => this.autoResize),
+      tap(event => {
+        this.onResize(event);
+        this.grid!.resize();
+      })
+    ).subscribe();
   }
 
   generateLayout(): void {
@@ -73,7 +81,7 @@ export class BoardDetailsComponent implements OnInit {
       }
       i++;
       this.layout = [...this.layout, layoutItem];
-      localStorage.setItem(this.getLayoutKey(), JSON.stringify(this.layout));
+      this.saveCurrentLayout();
     }
   }
 
@@ -111,7 +119,7 @@ export class BoardDetailsComponent implements OnInit {
   }
 
   private getLayoutKey(): string {
-    return this._board!.id + '-layout';
+    return this._board!.id + '-layout-' + this.sensorColumns;
   }
 
   private getX(index: number) {
@@ -128,6 +136,9 @@ export class BoardDetailsComponent implements OnInit {
 
   onLayoutUpdate(layout: KtdGridLayout) {
     this.layout = layout;
+  }
+
+  saveCurrentLayout(): void {
     localStorage.setItem(this.getLayoutKey(), JSON.stringify(this.layout));
   }
 
@@ -143,14 +154,12 @@ export class BoardDetailsComponent implements OnInit {
     );
   }
 
-  @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     const newSensorColumns = Math.floor(2 + event.target.innerWidth / 700);
     if (newSensorColumns !== this.sensorColumns) {
       this.sensorColumns = newSensorColumns;
-      this.generateLayout();
+      this.getLayout();
     }
     this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 24);
   }
-
 }
