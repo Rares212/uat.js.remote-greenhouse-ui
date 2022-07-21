@@ -163,7 +163,7 @@ export class BoardDetailsComponent implements OnInit {
       this.sensorColumns = newSensorColumns;
       this.getLayout();
     }
-    this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 24);
+    this.rowHeight = Math.round(event.target.innerWidth / 12 + 150 + 60);
   }
 
   onChartInteractionStart() {

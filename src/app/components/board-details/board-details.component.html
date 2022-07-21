@@ -4,7 +4,7 @@
   <ktd-grid [cols]="sensorColumns" [rowHeight]="rowHeight" [layout]="layout" (layoutUpdated)="onLayoutUpdate($event)"
             (dragEnded)="saveCurrentLayout()" (resizeEnded)="saveCurrentLayout()">
     <ktd-grid-item *ngFor="let item of layout; trackBy: trackById" [id]="item.id" [maxH]="1"
-                   [dragStartThreshold]="dragThreshold" [draggable]="isDraggable">
+                   [dragStartThreshold]="dragThreshold" [draggable]="isDraggable" [resizable]="true">
       <app-sensor-details [gridItemWidth]="item.w"
                           [layoutColumns]="sensorColumns"
                           [sensor]="findSensorById(item.id)"

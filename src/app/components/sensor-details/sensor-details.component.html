@@ -1,9 +1,13 @@
 <mat-card *ngIf="sensor !== undefined">
-  <mat-card-title class="card-title">
+  <mat-card-title class="card-title draggable">
     {{sensor.name}}
   </mat-card-title>
 
-  <div class="data-display-container">
+  <div class="data-display-container" #dataContainer
+       (mouseenter)="chartInteractionStart.emit('')"
+       (mouseleave)="chartInteractionEnd.emit('')"
+       (mousedown)="chartInteractionStart.emit('')"
+       (mouseup)="chartInteractionEnd.emit('')">
     <div class="gauge-chart" [class.opened]="!(layoutColumns === 2 && gridItemWidth === 2)"
          [style.width.px]="!(layoutColumns === 2 && gridItemWidth === 2) ? heightPx * gaugeScaleFactor : null">
       <ngx-charts-gauge *ngIf="sensor.measurementUnit !== MeasurementUnit.BOOL"
@@ -18,7 +22,11 @@
                         [angleSpan]="240"
                         [showAxis]="false"
                         [units]="sensor.measurementUnit.toString()"
-                        [scheme]="colorScheme">
+                        [scheme]="colorScheme"
+                        (mouseenter)="chartInteractionStart.emit('')"
+                        (mouseleave)="chartInteractionEnd.emit('')"
+                        (mousedown)="chartInteractionStart.emit('')"
+                        (mouseup)="chartInteractionEnd.emit('')">
       </ngx-charts-gauge>
       <!--app-boolean-indicator *ngIf="sensor.measurementUnit === MeasurementUnit.BOOL"
         [value]="sensor.latestMeasurement.value > 0.0">
@@ -35,18 +43,16 @@
                         [startAngle]="-180"
                         [angleSpan]="360"
                         [units]="'____'"
-                        [scheme]="colorScheme">
+                        [scheme]="colorScheme"
+                        (mouseenter)="chartInteractionStart.emit('')"
+                        (mouseleave)="chartInteractionEnd.emit('')"
+                        (mousedown)="chartInteractionStart.emit('')"
+                        (mouseup)="chartInteractionEnd.emit('')">
       </ngx-charts-gauge>
     </div>
 
     <div class="line-chart" (resized)="onChartWidthChange($event)" [class.opened]="gridItemWidth > 1">
       <ngx-charts-line-chart
-        (mouseenter)="chartInteractionStart.emit('')"
-        (mouseleave)="chartInteractionEnd.emit('')"
-        (mousedown)="chartInteractionStart.emit('')"
-        (mouseup)="chartInteractionEnd.emit('')"
-        (touchstart)="chartInteractionStart.emit('')"
-        (touchend)="chartInteractionEnd.emit('')"
         [view]="[chartWidth, heightPx]"
         [scheme]="colorScheme"
         [legend]="false"
@@ -63,7 +69,11 @@
         [roundDomains]="true"
         [showGridLines]="true"
         [referenceLines]="sensor.referenceLines"
-        [showRefLines]="true">
+        [showRefLines]="true"
+        (mouseenter)="chartInteractionStart.emit('')"
+        (mouseleave)="chartInteractionEnd.emit('')"
+        (mousedown)="chartInteractionStart.emit('')"
+        (mouseup)="chartInteractionEnd.emit('')">
       </ngx-charts-line-chart>
     </div>
   </div>
